@@ -1,0 +1,54 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="login-logo">Edu<span>Cobros</span></div>
+        <p class="login-subtitle">Ingresa tus credenciales para continuar</p>
+
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Email" class="form-label">Correo electrónico</label>
+                <input asp-for="Input.Email" class="form-control" autocomplete="username"
+                       placeholder="correo@ejemplo.com" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Password" class="form-label">Contraseña</label>
+                <input asp-for="Input.Password" class="form-control" autocomplete="current-password"
+                       placeholder="••••••••" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4 d-flex align-items-center justify-content-between">
+                <label class="d-flex align-items-center gap-2" style="font-weight:500; text-transform:none; font-size:0.88rem; cursor:pointer;">
+                    <input class="form-check-input m-0" asp-for="Input.RememberMe" />
+                    Recordarme
+                </label>
+                <a asp-page="./ForgotPassword" style="font-size:0.85rem; color:var(--rojo);">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button id="login-submit" type="submit" class="btn btn-main w-100 btn-lg">
+                Iniciar Sesión
+            </button>
+
+            <div class="text-center mt-3">
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl"
+                       style="font-size:0.85rem; color:var(--azul-claro);">
+                    ¿No tienes cuenta? Regístrate
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,63 @@
+﻿@model EduCobros.Models.Estudiante
+
+@{
+    ViewData["Title"] = "Nuevo Estudiante";
+}
+
+<div class="main-card card-accent" style="max-width: 680px; margin: 0 auto;">
+    <span class="section-badge">Formulario</span>
+    <h1 class="page-title mt-2 mb-1">Registrar Estudiante</h1>
+    <p class="page-subtitle mb-4">Completa los datos del nuevo estudiante.</p>
+    <div class="divider-red"></div>
+
+    <form asp-action="Create" method="post" class="mt-4">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" class="form-control" placeholder="Ej: María García Pérez" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Grado" class="form-label"></label>
+            <select asp-for="Grado" class="form-select">
+                <option value="">— Seleccionar grado —</option>
+                <option>1ro Primaria</option>
+                <option>2do Primaria</option>
+                <option>3ro Primaria</option>
+                <option>4to Primaria</option>
+                <option>5to Primaria</option>
+                <option>6to Primaria</option>
+                <option>1ro Sec.</option>
+                <option>2do Sec.</option>
+                <option>3ro Sec.</option>
+            </select>
+            <span asp-validation-for="Grado" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Mensualidad" class="form-label"></label>
+            <input asp-for="Mensualidad" class="form-control" type="number" step="0.01" placeholder="0.00" />
+            <span asp-validation-for="Mensualidad" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="MesesDebidos" class="form-label"></label>
+            <input asp-for="MesesDebidos" class="form-control" type="number" min="0" max="12" value="0" />
+            <span asp-validation-for="MesesDebidos" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-main">Guardar Estudiante</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

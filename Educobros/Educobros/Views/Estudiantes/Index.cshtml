@@ -1,0 +1,89 @@
+﻿@model List<EduCobros.Models.Estudiante>
+
+@{
+    ViewData["Title"] = "Estudiantes";
+}
+
+<div class="main-card">
+    <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
+        <div>
+            <span class="section-badge">Gestión de alumnos</span>
+            <h1 class="page-title mt-2">Estudiantes</h1>
+            <p class="page-subtitle">Consulta, registra y administra los estudiantes del sistema.</p>
+        </div>
+        @if (User.IsInRole("Admin") || User.IsInRole("Secretaria"))
+        {
+            <a asp-action="Create" class="btn btn-main">+ Nuevo Estudiante</a>
+        }
+    </div>
+
+    <div class="divider-red"></div>
+
+    <div class="table-responsive mt-3">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Grado</th>
+                    <th>Mensualidad</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var est in Model)
+                {
+                    <tr>
+                        <td><strong>@est.Id</strong></td>
+                        <td>
+                            <div class="student-cell">
+                                <div class="student-avatar">@est.Nombre.Substring(0, 1).ToUpper()</div>
+                                <div class="student-name">@est.Nombre</div>
+                            </div>
+                        </td>
+                        <td>@est.Grado</td>
+                        <td><span class="money-badge">RD$ @est.Mensualidad.ToString("N0")</span></td>
+                        <td>
+                            @if (est.MesesDebidos == 0)
+                            {
+                                <span class="badge-estado-ok">✓ Al día</span>
+                            }
+                            else if (est.MesesDebidos <= 2)
+                            {
+                                <span class="badge-estado-warn">⚠ @est.MesesDebidos mes(es)</span>
+                            }
+                            else
+                            {
+                                <span class="badge-estado-error">✕ @est.MesesDebidos meses</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                @if (User.IsInRole("Admin") || User.IsInRole("Secretaria"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@est.Id" class="btn btn-sm btn-warning">Editar</a>
+                                }
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <form asp-action="Delete" asp-route-id="@est.Id" method="post" style="display:inline;">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('¿Eliminar este estudiante?')">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-3 d-flex gap-4" style="font-size:0.88rem; color:var(--gris-texto);">
+        <span><strong style="color:var(--negro)">@Model.Count</strong> estudiantes en total</span>
+        <span><strong style="color:var(--rojo)">@Model.Count(e => e.MesesDebidos > 0)</strong> con deuda pendiente</span>
+    </div>
+</div>

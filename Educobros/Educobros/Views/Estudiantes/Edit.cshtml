@@ -1,0 +1,53 @@
+﻿@model EduCobros.Models.Estudiante
+
+@{
+    ViewData["Title"] = "Editar Estudiante";
+}
+
+<div class="main-card card-accent" style="max-width: 680px; margin: 0 auto;">
+    <span class="section-badge">Edición</span>
+    <h1 class="page-title mt-2 mb-1">Editar Estudiante</h1>
+    <p class="page-subtitle mb-4">Modifica los datos y guarda los cambios.</p>
+    <div class="divider-red"></div>
+
+    <form asp-action="Edit" method="post" class="mt-4">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Grado" class="form-label"></label>
+            <input asp-for="Grado" class="form-control" />
+            <span asp-validation-for="Grado" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Mensualidad" class="form-label"></label>
+            <input asp-for="Mensualidad" class="form-control" />
+            <span asp-validation-for="Mensualidad" class="text-danger"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="MesesDebidos" class="form-label"></label>
+            <input asp-for="MesesDebidos" class="form-control" />
+            <span asp-validation-for="MesesDebidos" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-main">Guardar Cambios</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

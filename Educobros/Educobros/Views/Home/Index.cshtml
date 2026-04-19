@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<section class="hero-section">
+    <div class="hero-text">
+        <div class="hero-accent-line"></div>
+        <h1>GESTIÓN<br /><span style="color:var(--rojo)">ESCOLAR</span><br />MODERNA</h1>
+        <p>
+            Administra estudiantes, registra pagos y consulta reportes
+            desde un solo lugar. Rápido, seguro y siempre disponible.
+        </p>
+        <div class="hero-buttons">
+            <a asp-controller="Estudiantes" asp-action="Index" class="btn btn-main btn-lg">
+                Ver Estudiantes
+            </a>
+            <a asp-controller="Pagos" asp-action="Create" class="btn btn-outline-dark btn-lg">
+                Registrar Pago
+            </a>
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="~/img/Gemini_Generated_Image_cx45jecx45jecx45.png" alt="EduCobros" />
+    </div>
+</section>
